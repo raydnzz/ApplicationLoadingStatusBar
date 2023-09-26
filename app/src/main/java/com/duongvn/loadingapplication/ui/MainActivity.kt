@@ -137,12 +137,14 @@ class MainActivity : AppCompatActivity() {
             priority = NotificationCompat.PRIORITY_DEFAULT
             setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
 
-            with(NotificationManagerCompat.from(this@MainActivity)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && checkPermission()) {
+                showAlert()
+            } else {
+                try {
+                    NotificationManagerCompat.from(this@MainActivity)
+                        .notify(idDownload.toInt(), build())
+                } catch (_: Exception) {
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && checkPermission()) {
-                    showAlert()
-                } else {
-                    notify(idDownload.toInt(), build())
                 }
             }
         }
