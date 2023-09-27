@@ -140,12 +140,8 @@ class MainActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && checkPermission()) {
                 showAlert()
             } else {
-                try {
-                    NotificationManagerCompat.from(this@MainActivity)
+                NotificationManagerCompat.from(this@MainActivity)
                         .notify(idDownload.toInt(), build())
-                } catch (_: Exception) {
-
-                }
             }
         }
 
