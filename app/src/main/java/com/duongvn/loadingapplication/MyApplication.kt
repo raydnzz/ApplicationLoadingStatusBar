@@ -1,9 +1,8 @@
 package com.duongvn.loadingapplication
 
 import android.app.Application
-import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
-import androidx.core.app.NotificationCompat
 
 
 class MyApplication : Application() {
@@ -20,15 +19,10 @@ class MyApplication : Application() {
     private fun createNotificationChannel() {
         val name  = "Channel DownLoad"
         val description = "Channel DownLoad Description"
-
-        //Send push notification
-        val notify: Notification = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-            .setContentTitle(name)
-            .setContentText(description)
-            .setSmallIcon(R.drawable.round_cloud_download_24)
-            .build()
-
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(0, notify)
+        val importance = NotificationManager.IMPORTANCE_MIN
+        val channel = NotificationChannel(CHANNEL_ID, name, importance)
+        channel.description = description
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager.createNotificationChannel(channel)
     }
 }
